@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Client Example</title>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+		<link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<style type="text/css">
+			body { 
+				background-color: #D8D8D8;
+				padding-top: 60px;
+				padding-bottom: 40px;
+			}
+			.row-fluid div[class*="span"] {
+				background-color: white;
+				-webkit-border-radius: 6px;
+				-moz-border-radius: 6px;
+				border-radius: 6px;
+				margin-bottom: 10px !important;
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/js/bootstrap.min.js"></script>
+		<!-- Start custom script -->
+		<script>
+			$(document).ready(function() {
+				$("#first").click(function() {
+					$("#section2").trigger("click");
+				});
+				
+				$("#second").toggle(function() {
+					$("#alert").removeClass("alert-error");
+					$("#alert").addClass("alert-info");
+				}, function() {
+					$("#alert").removeClass("alert-info");
+					$("#alert").addClass("alert-error");
+				});
+				
+				$("#third").click(function(){
+					var width= $("#bar").width();
+					$(".bar").width(width + 50);
+				});
+			});
+		</script>
+		<!-- End of custom script -->
+		<!-- sTART OF NavBar !-->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">Example</a>
+					<a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<div class="nav-collapse" id="navMenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="#">Home</a>
+							</li>
+							<li>
+								<a href="#">Home2</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of NavBar -->
+		<div class="container">
+			<div class="hero-unit">
+				<h1>Blueberry</h1><br />
+				<h3>Stay Hungry, stay foolish...</h3>
+			</div>
+			<!-- Start bottom content --> 
+			<div class="row-fluid">
+				<div class="span4">
+					<h2>SPAN 4</h2>
+					<input id="first" class="btn btn-danger" type="button" value="Section2" />
+				</div>
+				<div class="span4">
+					<h2>SPAN 4</h2>
+					<input id="second" class="btn btn-info" type="button" value="Alert Collor" />
+				</div>
+				<div class="span4">
+					<h2>SPAN 4</h2>
+					<input id="third" class="btn btn-primary" type="button" value="Progress" />
+				</div>
+			</div>
+			<!-- End of bottom content -->
+			<!-- Start 2 column -->
+			<div class="row-fluid">
+				<div class="span6">
+					<h2>Span 6</h2>
+					<div class="tabbable">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#tab1" data-toggle="tab">Section 1</a>
+							</li>
+							<li>
+								<a href="#tab2" data-toggle="tab" id="section2">Section 2</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab1">
+								Sectoin 1.
+							</div>
+							<div class="tab-pane" id="tab2">
+								Sectoin 2.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span6">
+					<h2>SPAN 6</h2>
+					<div class="progress">
+						<div id="bar" class="bar" style="width:50px;"></div>
+					</div>
+					<div class="progress progress-danger progress-striped active">
+						<div id="bar" class="bar" style="width: 50px;"></div>
+					</div>
+				</div>
+			</div>
+			<!-- End of 2 column -->
+			<!-- Start 1 column -->
+			<div class="row-fluid">
+				<div class="span12">
+					<br />
+					<div class="alert alert-error fade-in" id="alert">
+						<a class="close" data-dismiss="alert" href="#">x</a>
+						<strong>SPAN 12!</strong>
+					</div>
+				</div>
+			</div>
+			<!-- End of 1 column -->
+			
+		</div>
+	</body>
+</html>
