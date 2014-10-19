@@ -2,3 +2,4 @@
 database
 .pydevproject
 .idea
+*.pyc
