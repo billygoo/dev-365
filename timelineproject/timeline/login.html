@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="ko">
+    <meta charset="UTF-8">
+    <title>Timeline example</title>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="timeline.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+</head>
+<body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="timeline.js"></script>
+    <script src="base64.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#registerBtn").click(function(){
+                location.href = "join.html"
+            });
+            $("#loginBtn").click(doLogin());
+            $("#adminBtn").click(goAdmin);
+        });
+    </script>
+    <!-- start content -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-data-target="#navMenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="login.html">TimeLine Service</a>
+                <div class="nav-collapse" id="navMenu">
+                    <div class="btn-group pull-right">
+                        <a class="btn" id="adminBtn">
+                            <i class="icon-pencil"></i>ADMIN
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bg logincontainer">
+        <div class="row-fluid">
+            <div class="span8">
+                <div class="inside center loginbox">
+                    <h1 class="bigfont lightblue middlemsg">Time Line Service</h1>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="inside center loginbox">
+                    <br>
+                    <div class="alert alert-info">
+                        <h4>Login Please</h4>
+                    </div>
+                    ID: <input type="text" id="username" class="width50"/>
+                    <br>
+                    PW: <input type="password" id="password" class="width50"/>
+                    <div class="inside">
+                        <a class="btn btn-primary" id="loginBtn">Login</a>
+                        <a class="btn btn-primary between" id="registerBtn">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

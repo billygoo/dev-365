@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.db.models.query_utils import Q
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from timeline.models import *
 
 def need_auth(functor):
@@ -43,6 +44,8 @@ def to_json(objs, status=200):
 @need_auth
 def timeline_view(request):
     messages = Message.objects.order_by('-created').all()
+    ignore = request.user.userprofile.get_ignorelist()
+    messages = messages.exclude(user__id__in=ignore)
     try:
         tweet_per_page = int(request.GET.get('per_page', 10))
         page_num = int(request.GET.get('page', 1))
@@ -206,6 +209,23 @@ def profile_view(request, username=None):
             return to_json(userprofile.serialize())
         except:
             pass
+    elif request.mehtod == 'POST':
+        profile = request.user.userprofile
+        profile.nickname = request.POST.get('nickname', profile.nickname)
+        profile.comment = request.POST.get('comment', profile.comment)
+        profile.country = request.POST.get('country', profile.country)
+        profile.url = request.POST.get('url', profile.url)
+        ignores = request.POST.get('ignore', None)
+        if ignores:
+            ignores = json.loads(ignores)
+            profile.set_ignorelist(ignores)
+        profile.save()
+        return to_json({'status': 'updated'})
     return to_json({'status': 'not found'}, 400)
 
+@need_auth
+def login_view(request):
+    return to_json({'status': 'ok', 'user': request.user.userprofile.serialize()})
 
+def serve_html(request, page):
+    return render_to_response(page+'.html')

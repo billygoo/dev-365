@@ -35,4 +35,7 @@ urlpatterns = patterns('',
 
     url(r'^api/profile/$', profile_view),
     url(r'^api/profile/(?P<username>\w+)/$', profile_view),
+
+    url(r'^api/login/$', login_view),
+    url(r'^home/(?P<page>\w+)/$', serve_html),
 )

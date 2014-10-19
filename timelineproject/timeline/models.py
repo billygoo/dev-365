@@ -21,9 +21,26 @@ class UserProfile(models.Model):
             'comment': self.comment,
             'country': self.country,
             'url': self.url,
-            'ignores':[],
+            'ignores':self.get_ignorelist(),
         }
         return data
+
+    def get_ignorelist(self):
+        ignores = []
+        for k in self.ignores.all():
+            ignores.append(k.id)
+        return ignores
+
+    def set_ignorelist(self, ignores):
+        self.ignores = []
+        for k in ignores:
+            try:
+                ignore = User.objects.get(id=k)
+                self.ignores.add(ignore)
+                self.save()
+            except:
+                pass
+
 
 class Message(models.Model):
     user = models.ForeignKey(User)
