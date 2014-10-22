@@ -1,0 +1,59 @@
+body {
+    background-color: darkgray;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    font-family: calibri;
+}
+
+.row-fluid div[class*="span"] {
+    background-color: white;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    margin-bottom: 10px !important;
+}
+
+.center {
+    text-align: center;
+    font-size: 16px;
+}
+
+.inside {
+    margin: 10px;
+}
+
+.lightblue {
+    color: #5b7dc1;
+}
+
+/* login page */
+.logincontainer {
+    padding:15px;
+    margin-top: 120px;
+}
+
+.between {
+    margin-left: 30px;
+}
+
+.bg {
+    padding: 15px;
+    background-color: darkcyan;
+}
+
+.loginbox {
+    height: 200px;
+}
+
+.middlemsg {
+    padding-top: 80px;
+}
+
+.bigfont {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.width50 {
+    width: 50%;
+}
