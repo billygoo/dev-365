@@ -9,17 +9,23 @@ from timeline.models import *
 
 def need_auth(functor):
     def try_auth(request, *args, **kwargs):
+        print request.META
         if 'HTTP_AUTHORIZATION' in request.META:
             basicauth = request.META['HTTP_AUTHORIZATION']
             user = None
             try:
-                b64key = basicauth.split('')[1]
+                print basicauth.split(' ')
+                b64key = basicauth.split(' ')[1]
                 key = base64.decodestring(b64key)
+                print "key:%s" % key
                 username, pw = key.split(':')
+                print 'username : %s' % username
 
                 user = authenticate(username=username, password=pw)
-            except:
+            except Exception, err:
+                print err
                 pass
+            print 'user : %s' % user
             if user:
                 login(request, user)
                 request.META['user'] = user
