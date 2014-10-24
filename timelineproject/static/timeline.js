@@ -131,3 +131,117 @@ function checkLoginString() {
         history.back();
     }
 }
+
+var doLogout = function() {
+    resetLoginString();
+    window.location = "/home/login";
+}
+
+var doWriteTimeline=function() {
+    var msg = $("#writearea").val();
+    $.ajax({
+        type:'post',
+        url:baseUrl+'api/timeline/create',
+        data:{message:msg},
+        beforeSend: function (request) {
+            request.setRequestHeader('Authorization', loginstring);
+        },
+        success: function () {
+            alert("OK");
+            doReload();
+        },
+        error: function (msg) {
+            alert("Fail to write data!")
+        }
+    });
+}
+
+var doGetTimeline = function() {
+    $.ajax({
+        type:'get',
+        url: baseUrl + 'api/timeline/',
+        beforeSend: function (req) {
+            req.setRequestHeader("Authorization", loginstring);
+        },
+        success: function(data) {
+            for (var i in data.items) {
+                doAppend(data.items[i]);
+            }
+            $("#total").html(data.total_count);
+            $("#mine").html($('[name=deleteMsg]').length - 1);
+            $("#username").html(username);
+            $("#writearea").val("");
+        },
+        error: function() {
+            alert("Fail to get data!")
+        }
+    });
+}
+
+var doAppend = function(data) {
+    node = $("#msgTemplate").clone();
+
+    $(".name", node).append(data.username);
+    $(".content", node).append(data.message);
+    $(".data", node).append(data.created);
+    $(".like", node).prepend(data.liked + "  ");
+    $("#like", node).attr("value", data.id);
+
+    if(username == data.username) {
+        $("[name=deleteMsg]", node).attr("value", data.id);
+    } else {
+        $("[name=deleteMsg]", node).remove();
+    }
+    node.show();
+    $("#timelinearea").append(node);
+}
+
+var doReload = function() {
+    doClear();
+    doGetTimeline();
+}
+
+var doClear = function() {
+    $("#timelinearea").html("");
+}
+
+var doDeleteTimeline = function () {
+    var id = $(this).val() + "/";
+
+    $.ajax({
+        type:'post',
+        url:baseUrl+'api/timeline/'+ id + '/delete/',
+        beforeSend: function (request) {
+            request.setRequestHeader('Authorization', loginstring);
+        },
+        success: function () {
+            doReload();
+        },
+        error: function (msg) {
+            alert("Fail to write data!")
+        }
+    });
+}
+
+var doSearchTimeline = function () {
+    $.ajax({
+        type:'post',
+        url:baseUrl+'api/timeline/find/',
+        data:{query:$("#search").val()},
+        beforeSend: function (request) {
+            request.setRequestHeader('Authorization', loginstring);
+        },
+        success: function () {
+            doClear()
+            for (var i in data) {
+                doAppend(data[i]);
+            }
+            $("#total").html(data.total_count);
+            $("#mine").html($('[name=deleteMsg]').length - 1);
+            $("#search").val("");
+        },
+        error: function (msg) {
+            alert("Fail to get data!")
+        }
+    });
+}

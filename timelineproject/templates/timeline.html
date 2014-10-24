@@ -15,7 +15,15 @@
     <script src="../static/timeline.js"></script>
     <script>
         $(document).ready(function(){
-  
+            getLoginString();
+            doGetTimeline();
+            $("#adminBtn").click(goAdmin);
+            $("#writeBtn").click(doWriteTimeline);
+            $("#reloadBtn").click(doReload);
+
+            $("[name=deleteMsg]").live("click", doDeleteTimeline);
+            $("#searchBtn").click(doSearchTimeline);
+            $("#logoutBtn").click(doLogout);
         });
     </script>
 
@@ -57,12 +65,64 @@
                         <label class="lightblue bold leftalign" for="textarea">
                             Compose New Message
                         </label>
-                        <textarea class="input-xlarge span6" id="writearea"
+                        <textarea class="input-xlarge span6" id="writearea" name="content" rows="3"></textarea>
+                        <div>
+                            <a class="btn btn-primary" id="writeBtn">Write</a>
+                            <a class="btn btn-info between" id="reloadBtn">Refresh</a>
+                        </div>
                     </fieldset>
+                </div>
+                <div class="roundinside" id="msgTemplate" style="display: none">
+                    <a data-toggle="modal" class="getInfo">
+                        <div class="name lightblue"></div>
+                    </a>
+                    <div class="content">
+                        <a class="btn close" name="deleteTimeline">X</a>
+                    </div>
+                    <span class="date"></span>
+                    <span class="like">
+                        <a class="btn" id="like" name="like">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </span>
+                </div>
+                <div id="timelinearea">
+                </div>
+            </div><!-- End of span7 -->
+            <div class="span4 submenu">
+                <div class="roundinside">
+                    <span>ID:</span>
+                    <span id="username"></span>
+                </div>
+                <div class="roundinside">
+                    <div class="pagination pagination-centered">
+                        <ul>
+                            <li><a><strong id="total"></strong>Total Tiemline</a></li>
+                            <li><a><strong id="mine"></strong>My Tiemline</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roundinside center bottom15">
+                    <input type="text" class="search" id="search" />
+                    <a class="btn btn-info" id="searchBtn">
+                        <i class="icon-search"></i>
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="modal hide fade" id="myModal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">X</button>
+            <h2><span id="modalid"></span>'s Info</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Nick:<span id="modalnickname"></span></h3>
+            <h3>Country:<span id="modalcountry"></span></h3>
+            <h3>URL:<span id="modalurl"></span></h3>
+            <h3>Comment:<span id="modalcomment"></span></h3>
+        </div>
     </div>
 </body>
 </html>
