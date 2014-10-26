@@ -45,6 +45,9 @@ def serialize(objs):
 
 def to_json(objs, status=200):
     j = json.dumps(objs, ensure_ascii=False)
+    print '-------------------------------------------------------'
+    print j
+    print '-------------------------------------------------------'
     return HttpResponse(j, status=status, content_type='application/json; charset=utf-8')
 
 @need_auth
@@ -213,9 +216,10 @@ def profile_view(request, username=None):
         try:
             userprofile = User.objects.get(username=username).userprofile
             return to_json(userprofile.serialize())
-        except:
+        except Exception, err:
+            print err
             pass
-    elif request.mehtod == 'POST':
+    elif request.method == 'POST':
         profile = request.user.userprofile
         profile.nickname = request.POST.get('nickname', profile.nickname)
         profile.comment = request.POST.get('comment', profile.comment)

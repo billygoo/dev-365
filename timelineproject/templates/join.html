@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
 <head lang="ko">
     <meta charset="UTF-8">
     <title>Timeline example</title>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}timeline.css" rel="stylesheet">
+    <link href="{% static "timeline.css" %}" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
 <body>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/js/bootstrap.min.js"></script>
-    <script src="{{STATIC_URL}}timeline.js"></script>
+    <script src="{% static "timeline.js" %}"></script>
     <script>
         $(document).ready(function(){
             $("#joinBtn").click(function(){
@@ -38,7 +39,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="login.html">TimeLine Service</a>
+                <a class="brand" href="/home/login">TimeLine Service</a>
                 <div class="nav-collapse" id="navMenu">
                     <div class="btn-group pull-right">
                         <a class="btn" id="adminBtn">

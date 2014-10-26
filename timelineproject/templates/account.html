@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="ko">
+    <meta charset="UTF-8">
+    <title>Timeline example</title>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static "timeline.css" %}" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+</head>
+<body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="{% static "timeline.js" %}"></script>
+    <script>
+        $(document).ready(function(){
+            getLoginString();
+
+            $("#adminBtn").click(goAdmin);
+            $("#logoutBtn").click(doLogout);
+
+            $("#username").val(username);
+
+            $("#chkPwBtn").click(doCheckPassword);
+            $("#setPwBtn").click(function () {
+                if($("#newpassword").val()!="") {
+                    doSetPassword();
+                } else {
+                    alert("Fill all forms");
+                }
+            });
+            $("#getNameBtn").click(doGetName);
+            $("#setNameBtn").click(doSetName);
+
+            doGetUserList();
+
+            $(".ignoreBtn").live("click", doIgnore);
+            $("#refreshBtn").click(doCancel);
+        });
+    </script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target="#navMenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">TimeLine Service</a>
+                <div class="nav-collapse" id="navMenu">
+                    <ul class="nav center">
+                        <li><a href="/home/timeline/">Home</a></li>
+                        <li><a href="/home/profile/">Profile</a></li>
+                        <li class="active"><a href="#">Account</a></li>
+                    </ul>
+                    <div class="btn-group pull-right">
+                        <a class="btn" id="adminBtn">
+                            <i class="icon-pencil"></i>Admin
+                            <span class="caret"></span>
+                        </a>
+                        <a class="btn" id="logoutBtn">
+                            <i class="icon-user"></i>Logout
+                            <span class="caret"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bg">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="inside">
+                    <div class="lightblue">
+                        <h1>Account</h1>
+                        <h4 class="between">Python/Django</h4>
+                    </div>
+                    <h3>Change your personal information</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="inside center">
+                    <H2>ID</H2>
+                    <div class="write">
+                        <input type="text" id="username" disabled="true" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="inside">
+                    <h2>Friend List</h2>
+                    <ul class="nav nav-tabs nav-stacked" id="listarea">
+                    </ul>
+                    <li id="ignoreTemplate" style="display:none;">
+                        <a>
+                            <button class="btn btn-mini btn-info right10 ignoreBtn">
+                                <i id="icon"></i>
+                            </button>
+                            <span id="name" name="name"></span>
+                            <span id="ignored">:ignored</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6 accountbox">
+                <div class="inside">
+                    <h3>Old Password:</h3>
+                    <input type="text" id="oldpassword" style="width:95%;">
+                    <h3>New Password:</h3>
+                    <input type="text" id="newpassword" style="width:95%;">
+                    <div class="center">
+                        <a class="btn" href="#" id="chkPwBtn">Check Password</a>
+                        <a class="btn between" href="#" id="setPwBtn">Set Password</a>
+                    </div>
+                </div>
+            </div>
+            <div class="span6 accountbox">
+                <div class="inside">
+                    <h2>Name</h2>
+                    <input type="text" id="getname" style="width: 95%;">
+                    <div class="center">
+                        <a class="btn" href="#" id="getNameBtn">Get name</a>
+                        <a class="btn between" href="#" id="setNameBtn">Set name</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12 center">
+                <div class="inside">
+                    <a class="btn btn-large btn-info" href="#" id="refreshBtn">Refresh</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
